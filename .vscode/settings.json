@@ -1,3 +1,16 @@
 {
-    "sqltools.connections": []
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "courseCSE340",
+            "connectString": "postgresql://motors:hYIznMnmMa1LUTG8fEJRLkLzg0m1MCpu@dpg-cu5f81dds78s739d7ndg-a.virginia-postgres.render.com/motors_uox8"
+        }
+    ]
 }

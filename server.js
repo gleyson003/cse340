@@ -12,6 +12,7 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute  = require("./routes/inventoryRoute")
+const utilities = require('./utilities/index');
 
 /* ***********************
  * View Engine and Templates
@@ -38,6 +39,29 @@ app.use("/inv", inventoryRoute)
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
+
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav;
+  try {
+    nav = await utilities.getNav(); 
+  } catch (error) {
+    console.error('Erro ao carregar a navegação:', error.message);
+  }
+
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message: err.message,
+    nav: nav || '',
+  });
+});
+
 
 /* ***********************
  * Log statement to confirm server operation

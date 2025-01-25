@@ -8,12 +8,31 @@
 const express = require("express")
 expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
+const { Client } = require('pg'); // Adicione a importação do pg
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute  = require("./routes/inventoryRoute")
 const vechiclesDetails  = require("./routes/vehicleDetailsRoute")
 const utilities = require('./utilities/index');
+
+/* ***********************
+ * Database Connection
+ *************************/
+const client = new Client({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: {
+    rejectUnauthorized: false // Pode ser necessário dependendo do ambiente
+  }
+});
+
+client.connect()
+  .then(() => console.log("Conectado ao banco de dados com sucesso"))
+  .catch(err => console.error("Erro de conexão com o banco de dados", err));
 
 /* ***********************
  * View Engine and Templates

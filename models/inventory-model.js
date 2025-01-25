@@ -36,7 +36,7 @@ async function getVehicleDetails(vehicle_id) {
     )
     return data.rows
   } catch (error) {
-    console.error("getclassificationsbyid error " + error)
+    console.error("getVehicleDetails error " + error)
   }
 }
 

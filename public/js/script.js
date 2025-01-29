@@ -80,5 +80,38 @@ if (upgradesContainer) {
         upgradeDiv.appendChild(upgradeImg);
         upgradeDiv.appendChild(upgradeName);
         upgradesContainer.appendChild(upgradeDiv);
+    }); 
+}
+
+
+// Show and hide password
+
+const pswBtn = document.querySelector('#pswbtn');
+if (pswBtn) {
+    pswBtn.addEventListener("click", function() {
+        const pswdInput = document.getElementById("password");
+        const type = pswdInput.getAttribute("type");
+        if (type === "password") {
+            pswdInput.setAttribute("type", "text");
+            pswBtn.innerHTML = 'Hide Password';
+        } else {
+            pswdInput.setAttribute("type", "password");
+            pswBtn.innerHTML = 'Show Password';
+        }
     });
 }
+
+// // Validation password
+const form = document.querySelector(".login-form");
+if (form) {
+    form.addEventListener("submit", function(event) {
+        const password = document.getElementById("password").value;
+        const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{12,}$/;
+
+        if (!passwordPattern.test(password)) {
+            alert("Password must be at least 12 characters long, include one uppercase letter, one number, and one special character.");
+            event.preventDefault(); // Impede o envio do formulário
+        }
+    });
+}
+

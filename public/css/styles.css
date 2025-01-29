@@ -224,6 +224,68 @@ h1 {
   align-items: center;
 }
 
+/* Login page and form*/
+.login-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #193657;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+  color: white;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form button {
+  width: 25%;
+  display: block;
+  margin: 15px auto;
+  padding: 10px;
+  margin-top: 15px;
+  background: white;
+  color: rgb(80, 79, 79);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.login-form span {
+  width: 35%;
+  display: block;
+  margin: 15px 0;
+  padding: 10px;
+  margin-top: 15px;
+  background: white;
+  color: rgb(80, 79, 79);
+  border-radius: 20px;
+}
+
+.login-form button:hover {
+  background: #0056b3;
+  color: white;
+}
+
+.login-form p {
+  color: white;
+}
+
+.login-form a {
+  color: white;
+}
+
 @media (min-width: 1440) {
   #reviews li {
     font-size: 18px;

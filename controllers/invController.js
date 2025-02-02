@@ -35,4 +35,100 @@ invCont.buildVehicleDetails = async function (req, res, next) {
   })
 }
 
+invCont.getManagementView = async (req, res) => {
+  let nav = await utilities.getNav()
+  const messages = req.flash('info');
+  res.render('inventory/management', { 
+    title: "Vehicle Management",
+    messages,
+    nav
+  });
+};
+
+invCont.addClassification = async function (req, res) {
+  let nav = await utilities.getNav();
+  const { className } = req.body; // Corrigido para coincidir com o input do formulário
+
+  if (!className || /\W/.test(className)) {
+    req.flash("error", "Invalid classification name. No spaces or special characters allowed.");
+    return res.render("inventory/addClassification", {
+      title: "Add New Classification",
+      messages: req.flash(),
+      nav,
+    });
+  }
+
+  try {
+    const result = await invModel.addClassification(className);
+    if (result.rowCount > 0) {
+      req.flash("success", "Classification added successfully!");
+      return res.redirect("/inv/add-classification"); 
+    } else {
+      req.flash("error", "Failed to add classification.");
+      return res.render("inventory/add-classification", {
+        title: "Add New Classification",
+        messages: req.flash(),
+        nav,
+      });
+    }
+  } catch (error) {
+    console.error("Error adding classification: ", error);
+    req.flash("error", "An unexpected error occurred.");
+    return res.render("inventory/add-classification", {
+      title: "Add New Classification",
+      messages: req.flash(),
+      nav,
+    });
+  }
+};
+
+invCont.showAddInventoryForm = async (req, res) => {
+  try {
+      // Consultar as classificações diretamente no banco de dados
+      let nav = await utilities.getNav();
+      const classificationList = await invModel.getClassifications(); // Supondo que invModel.getClassifications() retorne a lista de classificações
+
+      // Renderizar o formulário com quaisquer erros ou mensagens flash
+      res.render("inventory/addInventory", {
+          title: "Add New Vehicle",
+          classificationList: classificationList.rows, // Garantir que seja a lista de classificações
+          messages: req.flash('messages'),
+          nav
+      });
+  } catch (error) {
+      console.error("Error displaying add inventory form: " + error);
+      req.flash('messages', 'Error loading the form. Please try again later.');
+      res.redirect("/inv/management");
+  }
+};
+
+invCont.addInventory = async (req, res) => {
+  try {
+      // Pegar os dados do formulário
+      const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
+
+      // Lógica para adicionar o item ao banco de dados
+      await invModel.addInventory({
+          inv_make,
+          inv_model,
+          inv_year,
+          inv_description,
+          inv_image,
+          inv_thumbnail,
+          inv_price,
+          inv_miles,
+          inv_color,
+          classification_id
+      });
+
+      // Redirecionar ou mostrar mensagem de sucesso
+      req.flash('messages', 'Inventory item added successfully');
+      res.redirect('/inv/management');
+  } catch (error) {
+      console.error("Error adding inventory item: ", error);
+      req.flash('messages', 'Error adding inventory item. Please try again later.');
+      res.redirect('/inv/add-inventory');
+  }
+};
+
 module.exports = invCont

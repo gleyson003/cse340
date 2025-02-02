@@ -56,6 +56,7 @@ nav ul {
   background-color: black;
   padding: 1vw;
   margin: 2.5% 0;
+  row-gap: 10px;
 }
 
 nav li {

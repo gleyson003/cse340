@@ -92,7 +92,7 @@ app.use(async (err, req, res, next) => {
   try {
     nav = await utilities.getNav(); 
   } catch (error) {
-    console.error('Erro ao carregar a navegação:', error.message);
+    console.error('Error to load nav:', error.message);
   }
 
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);

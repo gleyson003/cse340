@@ -34,7 +34,7 @@
         <!-- Drop-down select for classification -->
         <label for="classification_id">Classification</label>
         <select name="classification_id" id="classification_id" required>
-            <option value="">Choose a Classification</option>
+            <option value=""></option>
             <% classificationList.forEach(function(classification) { %>
                 <option value="<%= classification.classification_id %>"><%= classification.classification_name %></option>
             <% }); %>

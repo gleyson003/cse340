@@ -287,6 +287,103 @@ h1 {
   color: white;
 }
 
+/* Add Classification form*/
+.add-classification-form {
+  background-color: #193657;
+  color: white;
+  height: 300px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-classification-form label {
+  display: block;
+  font-weight: bold;
+  margin: 10px;
+  color: white;
+}
+
+.add-classification-form div {
+  border: 5px solid white;
+  margin: 2%;
+}
+
+.add-classification-form input {
+  width: 60%;
+  padding: 8px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-classification-form button {
+  width: 40%;
+  padding: 10px;
+  margin: 10px;
+  background: white;
+  color: rgb(80, 79, 79);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Add inventory item form*/
+.add-inventory-form {
+  background-color: #193657;
+  color: white;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-inventory-form label {
+  display: block;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+}
+
+.add-inventory-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-inventory-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-inventory-form select {
+  width: 100%;
+  padding: 10px;
+}
+
+.add-inventory-form select option {
+  width: 80%;
+}
+
+.add-inventory-form button {
+  width: 40%;
+  padding: 10px;
+  display: block;
+  margin: 10px auto;
+  background: white;
+  color: rgb(80, 79, 79);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 @media (min-width: 1440) {
   #reviews li {
     font-size: 18px;
@@ -431,6 +528,38 @@ h1 {
   #reviews li {
     font-size: 12px;
   }
+
+  /* Add Classification form*/
+  .add-classification-form {
+    height: 250px;
+  }
+
+  .add-classification-form label {
+    font-size: small;
+  }
+
+  .add-classification-form div {
+    border: 2px solid white;
+    margin: 2% -5%;
+  }
+
+  .add-classification-form input {
+    width: 90%;
+    padding: 8px;
+    margin: 10px;
+  }
+
+  .add-classification-form button {
+    width: 80%;
+    display: block;
+    padding: 10px;
+    margin: 5% auto;
+  }
+
+  .add-inventory-form button {
+    width: 80%;
+    padding: 10px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -466,5 +595,21 @@ h1 {
 
   #reviews li {
     font-size: 12px;
+  }
+
+  .add-classification-form input {
+    width: 85%;
+    padding: 4px;
+    margin: 10px;
+  }
+
+  .add-classification-form button {
+    margin: 5% auto;
+    font-size: 10px;
+    padding: 5px;
+  }
+
+  .add-classification-form {
+    height: 220px;
   }
 }

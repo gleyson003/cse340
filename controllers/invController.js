@@ -65,7 +65,7 @@ invCont.addClassification = async function (req, res) {
       return res.redirect("/inv/add-classification"); 
     } else {
       req.flash("error", "Failed to add classification.");
-      return res.render("inventory/add-classification", {
+      return res.render("inventory/addClassification", {
         title: "Add New Classification",
         messages: req.flash(),
         nav,
@@ -74,7 +74,7 @@ invCont.addClassification = async function (req, res) {
   } catch (error) {
     console.error("Error adding classification: ", error);
     req.flash("error", "An unexpected error occurred.");
-    return res.render("inventory/add-classification", {
+    return res.render("inventory/addClassification", {
       title: "Add New Classification",
       messages: req.flash(),
       nav,
@@ -84,50 +84,44 @@ invCont.addClassification = async function (req, res) {
 
 invCont.showAddInventoryForm = async (req, res) => {
   try {
-      // Consultar as classificações diretamente no banco de dados
-      let nav = await utilities.getNav();
-      const classificationList = await invModel.getClassifications(); // Supondo que invModel.getClassifications() retorne a lista de classificações
+    let nav = await utilities.getNav();
+    const classificationList = await invModel.getClassifications(); // Supondo que invModel.getClassifications() retorne a lista de classificações
 
-      // Renderizar o formulário com quaisquer erros ou mensagens flash
-      res.render("inventory/addInventory", {
-          title: "Add New Vehicle",
-          classificationList: classificationList.rows, // Garantir que seja a lista de classificações
-          messages: req.flash('messages'),
-          nav
-      });
+    res.render("inventory/addInventory", {
+      title: "Add New Vehicle",
+      classificationList: classificationList.rows, // Garantir que seja a lista de classificações
+      messages: req.flash('messages'),
+      nav
+    });
   } catch (error) {
-      console.error("Error displaying add inventory form: " + error);
-      req.flash('messages', 'Error loading the form. Please try again later.');
-      res.redirect("/inv/management");
+    console.error("Error displaying add inventory form: " + error);
+    req.flash('messages', 'Error loading the form. Please try again later.');
+    res.redirect("/inv/management");
   }
 };
 
 invCont.addInventory = async (req, res) => {
   try {
-      // Pegar os dados do formulário
-      const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
+    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
+    await invModel.addInventory({
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    });
 
-      // Lógica para adicionar o item ao banco de dados
-      await invModel.addInventory({
-          inv_make,
-          inv_model,
-          inv_year,
-          inv_description,
-          inv_image,
-          inv_thumbnail,
-          inv_price,
-          inv_miles,
-          inv_color,
-          classification_id
-      });
-
-      // Redirecionar ou mostrar mensagem de sucesso
-      req.flash('messages', 'Inventory item added successfully');
-      res.redirect('/inv/management');
+    req.flash('messages', 'Inventory item added successfully');
+    res.redirect('/inv/add-inventory');
   } catch (error) {
-      console.error("Error adding inventory item: ", error);
-      req.flash('messages', 'Error adding inventory item. Please try again later.');
-      res.redirect('/inv/add-inventory');
+    console.error("Error adding inventory item: ", error);
+    req.flash('messages', 'Error adding inventory item. Please try again later.');
+    res.redirect('/inv/add-inventory');
   }
 };
 

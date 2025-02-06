@@ -19,6 +19,7 @@ const vechiclesDetails  = require("./routes/vehicleDetailsRoute")
 const utilities = require('./utilities/index');
 const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 
 
 /* ***********************
@@ -42,6 +43,8 @@ app.use(session({
   name: 'sessionId',
 }))
 
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 

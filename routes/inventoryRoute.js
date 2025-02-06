@@ -8,5 +8,7 @@ router.get("/management", invController.getManagementView);
 router.post("/add-classification", invController.addClassification);
 router.get("/add-inventory", invController.showAddInventoryForm);
 router.post("/add-inventory", invController.addInventory);
+router.get("/getInventory/:classification_id", invController.getInventoryJSON);
+
 
 module.exports = router;

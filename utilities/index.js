@@ -74,6 +74,20 @@ Util.buildVehicleDetails = async function(data){
   return grid
 };
 
+Util.buildClassificationList = async function () {
+  let list = "";
+  try {
+    let data = await invModel.getClassifications();
+    data.rows.forEach((row) => {
+      list += `<option value="${row.classification_id}">${row.classification_name}</option>`;
+    });
+  } catch (error) {
+    console.error("Error building classification list:", error);
+  }
+  return list;
+};
+
+
 /* ****************************************
 * Middleware to check token validity
 **************************************** */

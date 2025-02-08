@@ -384,6 +384,27 @@ h1 {
   cursor: pointer;
 }
 
+#inventoryDisplay {
+  background-color: #193657;
+  color: white;
+  display: block;
+  margin: 20px auto;
+  width: 60%;
+}
+
+#inventoryDisplay th {
+  font-size: 25px;
+}
+
+#inventoryDisplay td {
+  font-size: large;
+}
+
+#inventoryDisplay a {
+  color: rgb(253, 228, 0);
+  margin: 10px;
+}
+
 @media (min-width: 1440) {
   #reviews li {
     font-size: 18px;

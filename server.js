@@ -32,6 +32,8 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Middleware
  * ************************/
+app.use('/favicon.ico', (req, res) => res.status(204).end());
+
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,

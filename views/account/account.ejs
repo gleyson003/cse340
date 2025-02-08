@@ -1,7 +1,21 @@
 <main>
-    <h1><%= title %></h1>
-  
-    <!-- Login Show -->
-    <h4>Welcome New</h4>
+  <h1><%= title %></h1>
+
+  <!-- Login Show -->
+  <% if (locals.accountData) { %>
+    <h2>Welcome <%= locals.accountData.fname %></h2>
     <p>You're logged in</p>
-  </main>
+
+    <p><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></p>
+    
+    <% if (locals.accountData.account_type === 'Employee' || locals.accountData.account_type === 'Admin') { %>
+      <h3>Inventory Management</h3>
+      <p>
+        <a href="/inv/management">Go to Inventory Management</a>
+      </p>
+    <% } %>
+    
+  <% } else { %>
+    <p>Please log in to manage your account.</p>
+  <% } %>
+</main>

@@ -1,0 +1,49 @@
+<main>
+    <h1><%= title %></h1>
+  
+    <!-- Login Show -->
+    <% if (locals.accountData) { %>
+        <form action="/account/update" method="POST" class="login-form">
+            <input type="hidden" name="id" value="<%= locals.accountData.account_id %>">
+
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="fname" required value="<%= locals.accountData.account_firstname %>">
+        
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" name="lname" required value="<%= locals.accountData.account_lastname %>">
+            
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required value="<%= locals.accountData.account_email %>">
+        
+            <button type="submit">Update Account</button>
+        </form>
+
+        <form action="/account/update-password" method="POST" id="passwordAuth" class="login-form">
+            <p>Password must be at least 12 characters long, include one uppercase letter, one number, and one special character.</p>
+            <input type="hidden" name="id" value="<%= locals.accountData.account_id %>">
+
+            <label for="password">New Password</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password"
+                minlength="12"
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{12,}$"
+                title="Password must be at least 12 characters long, include one uppercase letter, one number, and one special character."
+                required
+            >
+            <span id="pswbtn">Show Password</span>
+            
+            <button type="submit">Update Password</button>
+        </form>
+    <% } else { %>
+        <p>Please log in to manage your account.</p>
+    <% } %>
+    
+    <body 
+        data-notice="<%= messages.notice || '' %>" 
+        data-error="<%= messages.error || '' %>">
+    </body>
+
+    <script src="/js/script.js"></script>
+</main>

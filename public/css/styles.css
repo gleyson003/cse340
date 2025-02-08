@@ -31,7 +31,7 @@ body {
 
 #top-header {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 2fr;
 }
 
 .siteName a {
@@ -39,14 +39,29 @@ body {
   font-size: 30px;
 }
 
-#tools a {
+#tools {
   float: right;
-  font-size: 17px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#tools a {
+  font-size: 90%;
+  display: block;
+  margin: 7px auto;
 }
 
 #tools a, .siteName a { 
   text-decoration: none;
   color: black;
+}
+
+.basic {
+  grid-column: 1 / 2;
+}
+
+.logout {
+  grid-column: 2 / 3;
 }
 
 nav ul {
@@ -580,6 +595,27 @@ h1 {
   .add-inventory-form button {
     width: 80%;
     padding: 10px;
+  }
+
+  #tools {
+    grid-template-columns: 1fr;
+    row-gap: 5px;
+
+  }
+  
+  #tools a {
+    font-size: 60%;
+    margin: auto;
+  }
+
+  .basic {
+    grid-row: 1 / 2;
+  }
+
+  .logout {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    
   }
 }
 

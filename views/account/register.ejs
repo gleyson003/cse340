@@ -2,7 +2,7 @@
   <h1><%= title %></h1>
 
   <!-- Login Form -->
-  <form action="/account/register" method="POST" class="login-form">
+  <form action="/account/register" method="POST" class="login-form" id="passwordAuth">
     <label for="fname">First name</label>
     <input type="text" id="fname" name="fname" required value="<%= locals.fname %>">
 
@@ -26,4 +26,10 @@
 
     <button type="submit">Register</button>
   </form>
+
+  <body 
+    data-notice="<%= messages.notice || '' %>" 
+    data-error="<%= messages.error || '' %>"
+    data-email-error="<%= messages.emailError || '' %>">
+  </body>
 </main>

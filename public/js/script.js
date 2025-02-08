@@ -85,24 +85,25 @@ if (upgradesContainer) {
 
 
 // Show and hide password
-
-const pswBtn = document.querySelector('#pswbtn');
-if (pswBtn) {
-    pswBtn.addEventListener("click", function() {
-        const pswdInput = document.getElementById("password");
-        const type = pswdInput.getAttribute("type");
-        if (type === "password") {
-            pswdInput.setAttribute("type", "text");
-            pswBtn.innerHTML = 'Hide Password';
-        } else {
-            pswdInput.setAttribute("type", "password");
-            pswBtn.innerHTML = 'Show Password';
-        }
-    });
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const pswBtn = document.querySelector('#pswbtn');
+    if (pswBtn) {
+        pswBtn.addEventListener("click", function() {
+            const pswdInput = document.getElementById("password");
+            const type = pswdInput.getAttribute("type");
+            if (type === "password") {
+                pswdInput.setAttribute("type", "text");
+                pswBtn.innerHTML = 'Hide Password';
+            } else {
+                pswdInput.setAttribute("type", "password");
+                pswBtn.innerHTML = 'Show Password';
+            }
+        });
+    }
+});
 
 // // Validation password
-const form = document.querySelector(".login-form");
+const form = document.querySelector("#passwordAuth");
 if (form) {
     form.addEventListener("submit", function(event) {
         const password = document.getElementById("password").value;
@@ -115,3 +116,37 @@ if (form) {
     });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const body = document.body;
+    const noticeMessage = body.getAttribute("data-notice");
+    const errorMessage = body.getAttribute("data-error");
+
+    if (noticeMessage) {
+        alert(noticeMessage);
+    }
+
+    if (errorMessage) {
+        alert(errorMessage);
+    }
+});
+
+// Register validation
+document.addEventListener("DOMContentLoaded", function () {
+    const body = document.body;
+    const noticeMessage = body.getAttribute("data-notice");
+    const errorMessage = body.getAttribute("data-error");
+
+    if (noticeMessage) {
+        alert(noticeMessage);
+    }
+
+    if (errorMessage) {
+        alert(errorMessage);
+    }
+
+    // Verifica se há mensagem de erro específica de e-mail já registrado
+    const emailError = body.getAttribute("data-email-error");
+    if (emailError) {
+        alert(emailError); // Exibe o alerta de erro específico
+    }
+});

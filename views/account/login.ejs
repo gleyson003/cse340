@@ -1,8 +1,11 @@
 <main>
   <h1><%= title %></h1>
-
+  <% if (messages.notice) { %>
+    <p class="error"><%= messages.notice %></p>
+  <% } %>
+  
   <!-- Login Form -->
-  <form action="/account/login" method="POST" class="login-form">
+  <form action="/account/login" method="POST" class="login-form" id="passwordAuth">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
 

@@ -93,23 +93,33 @@ Util.buildClassificationList = async function () {
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
-   jwt.verify(
-    req.cookies.jwt,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
-     if (err) {
-      req.flash("Please log in")
-      res.clearCookie("jwt")
-      return res.redirect("/account/login")
-     }
-     res.locals.accountData = accountData
-     res.locals.loggedin = 1
-     next()
-    })
+    jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (err, accountData) {
+      if (err) {
+        req.flash("Please log in");
+        res.clearCookie("jwt");
+        return res.redirect("/account/login");
+      }
+
+      res.locals.accountData = accountData;
+      res.locals.loggedin = 1;
+
+      next();
+    });
   } else {
-   next()
+    next();
   }
-}
+};
+
+Util.checkAccountType = (req, res, next) => {
+  const accountData = res.locals.accountData;
+
+  if (accountData && (accountData.account_type === 'Employee' || accountData.account_type === 'Admin')) {
+    return next();
+  } else {
+    req.flash("notice", "You can't access this page.");
+    return res.redirect("/account/login");
+  }
+};
 
 /* ****************************************
  *  Check Login

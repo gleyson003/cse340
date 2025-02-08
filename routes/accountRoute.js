@@ -18,10 +18,12 @@ router.post(
 router.get("/register", accountController.buildRegister);
 router.post("/register", accountController.registerAccount);
 
-router.get("/account/", accountController.showLogin)
-router.get(
-    "/",
-    utilities.checkLogin
-)
+router.get("/update/:id", accountController.editAccountForm);
+router.post("/update/", accountController.updateAccount);
+router.post("/update-password", accountController.updatePassword);
+
+router.get("/", utilities.checkLogin, accountController.showLogin);
+router.get("/logout", utilities.checkLogin, accountController.logout);
+
 
 module.exports = router;

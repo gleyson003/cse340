@@ -20,6 +20,7 @@ async function buildLogin(req, res) {
 async function buildRegister(req, res) {
   try {
     const nav = await utilities.getNav();
+    
     res.render("account/register", {
       title: "Register",
       nav
@@ -43,7 +44,6 @@ async function registerAccount(req, res) {
     // Hash the password before storing
     let hashedPassword
     try {
-      // regular password and cost (salt is generated automatically)
       hashedPassword = await bcrypt.hashSync(password, 10)
     } catch (error) {
       req.flash("notice", 'Sorry, there was an error processing the registration.')
@@ -57,23 +57,23 @@ async function registerAccount(req, res) {
     regResult = await accountModel.registerAccount(fname, lname, email, hashedPassword)
   } else {
     regResult = false
-    req.flash("notice", "Register email. Use another email.");
+    req.flash("notice", "This email is already registered. Please use a different email. ");
   }
   
   if (regResult) {
-    req.flash(
-      "notice",
-      `Congratulations, you\'re registered ${fname}. Please log in.`
-    )
+    req.flash("notice", `Congratulations, you\'re registered ${fname}. Please log in.`)
     res.redirect("/account/login")
   } else {
-    req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("account/register", {
+    res.render("account/register", {
       title: "Registration",
       nav,
+      messages: {
+        notice: req.flash("notice"),
+        error: req.flash("error")
+      },
     })
   }
-};
+}
 
 /* ****************************************
  *  Process login request
@@ -124,7 +124,7 @@ async function showLogin(req, res) {
     const message = req.flash('success_message');
     const errors = req.flash('errors'); 
 
-    res.render("account", {
+    res.render("account/account", {
       title: "Account Management",
       nav,
       message, 
@@ -135,10 +135,98 @@ async function showLogin(req, res) {
   }
 };
 
+async function updateAccount(req, res) {
+  try {
+    const { id, fname, lname, email } = req.body;    
+    const updateResult = await accountModel.updateAccount({ fname, lname, email, id });
+
+    if (updateResult) {
+      req.flash("notice", "Account updated successfully.");
+    } else {
+      req.flash("error", "Account update failed.");
+    }
+
+    res.redirect(`/account/update/${id}`)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+}
+
+async function updatePassword(req, res) {
+    try {
+      const {id, password} = req.body;
+
+      if (!id || !password) {
+        req.flash("error", "Invalid data.");
+        return res.redirect(`/account/update/${id}`);
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10)
+      const updateResult = await accountModel.updatePassword(id, hashedPassword);
+
+      if (updateResult) {
+        req.flash("notice", "Password updated successfully.");
+      } else {
+        req.flash("error", "Failed to updated password.")
+      }
+
+      res.redirect(`/account/update/${id}`)
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server error");
+    }
+}
+
+
+async function editAccountForm(req, res) {
+  try {
+      const accountId = req.params.id;
+      const nav = await utilities.getNav();
+      const accountData = await accountModel.getAccountById(accountId);
+
+      let messages = {
+        notice: req.flash("notice"),
+        error: req.flash("error")
+      };
+
+      if (!accountData) {
+          req.flash("notice", "Account not found.");
+          return res.redirect("/account/");
+      }
+
+      res.render("account/editAccount", {
+        title: "Edit Account",
+        nav,
+        messages,
+        errors: null,
+        accountData, 
+      });
+  } catch (error) {
+      console.error("Error fetching account data:", error);
+      res.status(500).send("Internal Server Error");
+  }
+}
+
+async function logout(req, res) {
+  if (req.cookies.jwt) { 
+    res.clearCookie("jwt");
+    res.redirect("/");
+  } else {
+    res.redirect("/account/login");
+  }
+}
+
+
 module.exports = {
   buildLogin, 
   buildRegister, 
   registerAccount, 
   accountLogin, 
-  showLogin 
+  showLogin,
+  updateAccount,
+  editAccountForm,
+  updatePassword,
+  logout
 };

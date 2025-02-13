@@ -25,5 +25,6 @@ router.post("/update-password", accountController.updatePassword);
 router.get("/", utilities.checkLogin, accountController.showLogin);
 router.get("/logout", utilities.checkLogin, accountController.logout);
 
+router.get("/accounts-list", accountController.getAccountsList);
 
 module.exports = router;

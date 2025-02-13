@@ -62,11 +62,22 @@ async function updatePassword(id, hashedPassword) {
   return await pool.query(sql, [hashedPassword, id]);
 }
 
+async function accountsList() {
+  try {
+    const sql = "SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account ORDER BY account_id"
+    const result = await pool.query(sql)
+    return result.rows;
+  } catch (error) {
+    return error.message
+  }
+}
+
 module.exports = { 
   registerAccount, 
   checkExistingEmail, 
   getAccountByEmail,
   getAccountById,
   updateAccount,
-  updatePassword
+  updatePassword,
+  accountsList
 };  

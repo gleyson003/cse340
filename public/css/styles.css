@@ -420,6 +420,26 @@ h1 {
   margin: 10px;
 }
 
+#accountTable {
+  background-color: #193657;
+  color: white;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+#accountTable th {
+  font-size: 18px;
+  padding: 10px;
+  text-align: center;
+}
+
+#accountTable td {
+  font-size: 15px;
+  padding: 10px;
+  text-align: center;
+}
+
 @media (min-width: 1440) {
   #reviews li {
     font-size: 18px;
@@ -462,6 +482,21 @@ h1 {
   
   #details p {
     grid-column: 1 / 2;
+  }
+
+  #accountTable {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  #accountTable th {
+    font-size: 15px;
+    padding: 5px;
+  }
+  
+  #accountTable td {
+    font-size: 12px;
+    padding: 5px;
   }
 }
 
@@ -615,7 +650,16 @@ h1 {
   .logout {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-    
+  }
+  
+  #accountTable th {
+    font-size: 10px;
+    padding: 2px;
+  }
+  
+  #accountTable td {
+    font-size: 10px;
+    padding: 2px;
   }
 }
 
@@ -668,5 +712,33 @@ h1 {
 
   .add-classification-form {
     height: 220px;
+  }
+
+  #accountTable {
+    width: 110%;
+    margin: 0 -10px;
+  }
+
+  #accountTable th {
+    font-size: 9px;
+    padding: 1px;
+  }
+  
+  #accountTable td {
+    font-size: 9px;
+    padding: 1px;
+  }
+}
+
+@media (max-width: 320px) {
+
+  #accountTable th {
+    font-size: 8px;
+    padding: 1px;
+  }
+  
+  #accountTable td {
+    font-size: 8px;
+    padding: 1px;
   }
 }

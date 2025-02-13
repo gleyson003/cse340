@@ -218,6 +218,34 @@ async function logout(req, res) {
   }
 }
 
+async function getAccountsList(req, res) {
+  try {  
+    const nav = await utilities.getNav();
+    const accountsList = await accountModel.accountsList(); // Adicionando await
+
+    let messages = {
+      notice: req.flash("notice"),
+      error: req.flash("error")
+    };
+
+    if (!accountsList || accountsList.length === 0) { // Verifica se há resultados
+        req.flash("notice", "No accounts found.");
+        return res.redirect("/account/");
+    }
+
+    res.render("account/list", {
+      title: "Accounts List",
+      nav,
+      messages,
+      errors: null,
+      accountsList, 
+    });
+  } catch (error) {
+    console.error("Error fetching account data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 
 module.exports = {
   buildLogin, 
@@ -228,5 +256,6 @@ module.exports = {
   updateAccount,
   editAccountForm,
   updatePassword,
-  logout
+  logout,
+  getAccountsList
 };

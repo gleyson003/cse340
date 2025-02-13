@@ -187,7 +187,7 @@ invCont.getInventoryJSON = async (req, res, next) => {
   if (Array.isArray(invData) && invData.length > 0) {
     return res.json(invData)
   } else {
-    next(new Error("No data returned"))
+    res.json([])
   }
 }
 
